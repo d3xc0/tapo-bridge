@@ -106,7 +106,7 @@ Everything is environment variables. See [`.env.example`](.env.example).
 | `TAPO_PASSWORD` | — | your **TP-Link account** password (required) |
 | `TAPO_USER` | `admin` | rarely needs changing |
 | `TAPO_NAME` | `stream` | served at `/<name>.ts` |
-| `TAPO_QUALITY` | `HD` | `HD` or `SD`; `SD` is much easier on the battery |
+| `TAPO_QUALITY` | `HD` | `HD` or `SD` (sent to the camera as `VGA`, the name it expects); `SD` is much easier on the battery |
 | `TAPO_INCLUDE_AUDIO` | `0` | include the audio track |
 | `TAPO_FF_ARGS` | — | JSON passed to pytapo's `Streamer` as `ff_args` |
 | `TAPO_CAMERAS` | — | JSON list; use instead of the single-camera vars |

@@ -57,6 +57,17 @@ class Camera:
     # config does not model (e.g. {"-c:v": "libx264"} to transcode at the source).
     ff_args: dict = field(default_factory=dict)
 
+    def __post_init__(self):
+        # The camera's live preview only knows two resolution names, "HD" and
+        # "VGA" (same enum in the Tapo app, and what go2rtc sends for
+        # subtype=1). Anything else, "SD" included, is silently ignored by the
+        # camera: the session never starts and no data arrives.
+        q = self.quality.strip().upper()
+        self.quality = {"SD": "VGA", "LOW": "VGA", "MAIN": "HD"}.get(q, q)
+        if self.quality not in ("HD", "VGA"):
+            sys.exit(f"Camera {self.name}: quality must be HD or SD (VGA), "
+                     f"got {self.quality!r}")
+
     @property
     def path(self) -> str:
         return f"/{self.name}.ts"
